@@ -22,4 +22,4 @@ This extension allows Moderators and Administrators to View the IP of the Poster
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
 
-© 201 - Rich McGirr (Richard McGirr)
+© 2016 - Rich McGirr (Richard McGirr)
