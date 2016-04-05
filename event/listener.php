@@ -25,25 +25,25 @@ class listener implements EventSubscriberInterface
 	}
 
 	static public function getSubscribedEvents()
-    {
-        return array(
+	{
+		return array(
 			'core.viewtopic_post_rowset_data'		=> 'add_posterip_in_rowset',
-            'core.viewtopic_modify_post_row'		=> 'display_posterip_viewtopic',
-        );
-    }
+			'core.viewtopic_modify_post_row'		=> 'display_posterip_viewtopic',
+		);
+	}
 
-    public function add_posterip_in_rowset($event)
-    {
+	public function add_posterip_in_rowset($event)
+	{
 		$rowset = $event['rowset_data'];
 		$row = $event['row'];
 
 		$rowset['poster_ip'] = $row['poster_ip'];
 
 		$event['rowset_data'] = $rowset;
-    }
+	}
 
-    public function display_posterip_viewtopic($event)
-    {
+	public function display_posterip_viewtopic($event)
+	{
 		$poster_ip = $event['row']['poster_ip'];
 
 		if ($this->auth->acl_gets('a_', 'm_') && !empty($poster_ip))
@@ -54,5 +54,5 @@ class listener implements EventSubscriberInterface
 				'POSTER_IP_WHOIS'	=> "http://en.utrace.de/?query=" . $poster_ip,
 			));
 		}
-    }
+	}
 }
