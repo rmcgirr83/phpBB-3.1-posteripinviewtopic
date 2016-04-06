@@ -5,7 +5,7 @@ This extension allows Moderators and Administrators to View the IP of the Poster
 [![Build Status](https://travis-ci.org/RMcGirr83/phpBB-3.1-posteripinviewtopic.svg?branch=master)](https://travis-ci.org/RMcGirr83/phpBB-3.1-posteripinviewtopic)
 
 ## Requirements
-* phpBB 3.1.0-a2 or higher
+* phpBB	3.1.0-b3 or higher
 * PHP 5.3.3 or higher
 
 ## Installation
@@ -16,7 +16,7 @@ This extension allows Moderators and Administrators to View the IP of the Poster
 
 ## Uninstallation
 1. Navigate in the ACP to `Customise -> Manage extensions`.
-2. Click the `Disable` link for Poster IP.
+2. Click the `Disable` link for Poster IP in Viewtopic.
 3. To permanently uninstall, click `Delete Data`, then delete the `posteripinviewtopic` folder from `phpBB/ext/rmcgirr83/`.
 
 ## License
