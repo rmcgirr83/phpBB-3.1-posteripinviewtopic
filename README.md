@@ -2,7 +2,7 @@
 
 This extension allows Moderators and Administrators to View the IP of the Poster on Viewtopic.
 
-[![Build Status](https://travis-ci.org/RMcGirr83/phpBB-3.1-posteripinviewtopic.svg?branch=master)](https://travis-ci.org/RMcGirr83/phpBB-3.1-posteripinviewtopic)
+[![Build Status](https://travis-ci.org/rmcgirr83/phpBB-3.1-posteripinviewtopic.svg?branch=master)](https://travis-ci.org/rmcgirr83/phpBB-3.1-posteripinviewtopic)
 
 ## Requirements
 * phpBB	3.1.0-b3 or higher
