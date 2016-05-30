@@ -45,8 +45,9 @@ class listener implements EventSubscriberInterface
 	public function display_posterip_viewtopic($event)
 	{
 		$poster_ip = $event['row']['poster_ip'];
+		$forum_id = $event['row']['forum_id'];
 
-		if ($this->auth->acl_gets('a_', 'm_') && !empty($poster_ip))
+		if (($this->auth->acl_gets('a_', 'm_') || $this->auth->acl_get('m_', (int) $forum_id)) && !empty($poster_ip))
 		{
 			$event['post_row'] = array_merge($event['post_row'], array(
 				'POSTER_IP_VISIBLE' => true,
