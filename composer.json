@@ -3,9 +3,9 @@
 	"type": "phpbb-extension",
 	"description": "This extension allows Moderators and Administrators to View the IP of the Poster on Viewtopic.",
 	"homepage": "http://www.github.com/rmcgirr83/phpbb31-posteripinviewtopic",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"keywords": ["phpbb", "extension", "tools"],
-	"time": "2015-03-23",
+	"time": "2017-06-20",
 	"license": "GPL-2.0",
 	"authors": [
 		{
