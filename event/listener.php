@@ -16,14 +16,21 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-	protected $auth;
-
+	/** @var \phpbb\auth\auth */
+	protected $auth;	
 
 	public function __construct(\phpbb\auth\auth $auth)
 	{
 		$this->auth = $auth;
 	}
 
+	/**
+	* Assign functions defined in this class to event listeners in the core
+	*
+	* @return array
+	* @static
+	* @access public
+	*/
 	static public function getSubscribedEvents()
 	{
 		return array(
@@ -32,6 +39,13 @@ class listener implements EventSubscriberInterface
 		);
 	}
 
+	/**
+	* Add posterip into rowset
+	*
+	* @param object $event The event object
+	* @return null
+	* @access public
+	*/
 	public function add_posterip_in_rowset($event)
 	{
 		$rowset = $event['rowset_data'];
@@ -42,6 +56,13 @@ class listener implements EventSubscriberInterface
 		$event['rowset_data'] = $rowset;
 	}
 
+	/**
+	* Display posterip on each topic
+	*
+	* @param object $event The event object
+	* @return null
+	* @access public
+	*/
 	public function display_posterip_viewtopic($event)
 	{
 		$poster_ip = $event['row']['poster_ip'];
