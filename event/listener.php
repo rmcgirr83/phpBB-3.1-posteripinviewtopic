@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class listener implements EventSubscriberInterface
 {
 	/** @var \phpbb\auth\auth */
-	protected $auth;	
+	protected $auth;
 
 	public function __construct(\phpbb\auth\auth $auth)
 	{
