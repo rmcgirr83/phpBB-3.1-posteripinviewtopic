@@ -1,0 +1,3 @@
+rmcgirr83_posteripinviewtopic_core_freegeoip:
+    path: /freegeoip/{poster_ip}/{forum_id}
+    defaults: { _controller: rmcgirr83.posteripinviewtopic.core.freegeoip:freegeoip }

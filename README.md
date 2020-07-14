@@ -1,6 +1,9 @@
-# Poster IP extension for phpBB 3.1
+Poster IP in viewtopic
+===============
 
-This extension allows Moderators and Administrators to View the IP of the Poster on Viewtopic.
+Poster IP in viewtopic
+
+This extension allows Moderators and Administrators to View the IP of the Poster on Viewtopic.  Utilizes the Freegeoip api.
 
 [![Build Status](https://travis-ci.org/rmcgirr83/posteripinviewtopic.svg?branch=master)](https://travis-ci.org/rmcgirr83/posteripinviewtopic)
 

@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package phpBB Extension - Poster IP
+* @package phpBB Extension - Poster IP in viewtopic
 * @copyright (c) 2016 RMcGirr83 (Rich McGirr)
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
@@ -9,6 +9,8 @@
 
 namespace rmcgirr83\posteripinviewtopic\event;
 
+use phpbb\auth\auth;
+use phpbb\controller\helper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -19,9 +21,17 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\auth\auth */
 	protected $auth;
 
-	public function __construct(\phpbb\auth\auth $auth)
+	/** @var \phpbb\controller\helper */
+	protected $helper;
+
+	/** @var \rmcgirr83\posteripinviewtopic\core\freegeoipapi */
+	protected $freegeoipapi;
+
+	public function __construct(auth $auth, helper $helper, \rmcgirr83\posteripinviewtopic\core\freegeoip $freegeoip)
 	{
 		$this->auth = $auth;
+		$this->helper = $helper;
+		$this->freegeoip = $freegeoip;
 	}
 
 	/**
@@ -68,13 +78,15 @@ class listener implements EventSubscriberInterface
 		$poster_ip = $event['row']['poster_ip'];
 		$forum_id = $event['row']['forum_id'];
 
-		if (($this->auth->acl_gets('a_', 'm_') || $this->auth->acl_get('m_', (int) $forum_id)) && !empty($poster_ip))
+		if (($this->auth->acl_gets('a_', 'm_') || $this->auth->acl_get('m_', (int) $forum_id)) && (!empty($poster_ip) && $poster_ip != '127.0.0.1'))
 		{
-			$event['post_row'] = array_merge($event['post_row'], array(
+			$query_url = $this->helper->route('rmcgirr83_posteripinviewtopic_core_freegeoip', array('poster_ip' => $poster_ip, 'forum_id' => (int) $forum_id));
+
+			$event['post_row'] = array_merge($event['post_row'], [
 				'POSTER_IP_VISIBLE' => true,
 				'POSTER_IP'			=> $poster_ip,
-				'POSTER_IP_WHOIS'	=> "http://en.utrace.de/?query=" . $poster_ip,
-			));
+				'QUERY_URL'			=> $query_url,
+			]);
 		}
 	}
 }

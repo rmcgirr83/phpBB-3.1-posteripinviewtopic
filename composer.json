@@ -1,25 +1,37 @@
 {
-	"name": "rmcgirr83/posteripinviewtopic",
-	"type": "phpbb-extension",
-	"description": "This extension allows Moderators and Administrators to View the IP of the Poster on Viewtopic.",
-	"homepage": "https://github.com/rmcgirr83/posteripinviewtopic",
-	"version": "1.0.3",
-	"keywords": ["phpbb", "extension", "tools"],
-	"time": "2020-07-05",
-	"license": "GPL-2.0-only",
-	"authors": [
-		{
-			"name": "Rich McGirr (RMcGirr83)",
-			"role": "Extension Developer"
-		}
-	],
-	"require": {
-		"php": ">=5.3.3"
-	},
-	"extra": {
-		"display-name": "Poster IP in Viewtopic",
-		"soft-require": {
-			"phpbb/phpbb": ">=3.2"
-		}
-	}
+    "name": "rmcgirr83/posteripinviewtopic",
+    "type": "phpbb-extension",
+    "description": "This extension allows Moderators and Administrators to View the IP of the Poster on Viewtopic.",
+    "homepage": "https://github.com/rmcgirr83/posteripinviewtopic",
+    "version": "1.1.0",
+    "keywords": [
+        "phpbb",
+        "extension",
+        "tools"
+    ],
+    "time": "2020-07-14",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "Rich McGirr (RMcGirr83)",
+            "role": "Extension Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "phpbb/phpbb": ">=3.2",
+        "composer/installers": "~1.0.0"
+    },
+    "extra": {
+        "display-name": "Poster IP in Viewtopic",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.2"
+        },
+        "version-check": {
+            "host": "www.phpbb.com",
+            "directory": "/customise/db/extension/poster_ip_in_viewtopic",
+            "filename": "version_check",
+            "ssl": true
+        }
+    }
 }

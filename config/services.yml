@@ -3,5 +3,14 @@ services:
         class: rmcgirr83\posteripinviewtopic\event\listener
         arguments:
             - '@auth'
+            - '@controller.helper'
+            - '@rmcgirr83.posteripinviewtopic.core.freegeoip'
         tags:
             - { name: event.listener }
+
+    rmcgirr83.posteripinviewtopic.core.freegeoip:
+        class: rmcgirr83\posteripinviewtopic\core\freegeoip
+        arguments:
+            - '@auth'
+            - '@language'
+            - '@request'
