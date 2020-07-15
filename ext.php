@@ -7,7 +7,7 @@
 *
 */
 
-namespace rmcgirr83\upcomingbirthdays;
+namespace rmcgirr83\posteripinviewtopic;
 
 /**
 * Extension class for custom enable/disable/purge actions
