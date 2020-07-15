@@ -30,7 +30,7 @@ class ext extends \phpbb\extension\base
 		if (!$enableable)
 		{
 			$language = $this->container->get('language');
-			$this->language->add_lang('common', 'rmcgirr83/posteripinviewtopic');
+			$language->add_lang('common', 'rmcgirr83/posteripinviewtopic');
 
 			trigger_error($language->lang('EXTENSION_REQUIREMENTS', self::PHPBB_MIN_VERSION), E_USER_WARNING);
 		}

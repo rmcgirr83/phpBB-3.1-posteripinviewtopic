@@ -50,5 +50,5 @@ $lang = array_merge($lang, [
 	'PIPIV_LATITUDE'		=> '<b>Latitude:</b> %1$s',
 	'PIPIV_LONGITUDE'		=> '<b>Longitude:</b> %1$s',
 	'PIPIV_METRO_CODE'	=> '<b>Metro Code:</b> %1$s',
-	'EXTENSION_REQUIREMENTS' => 'Extension requires at least phpBB version 3.2. You need to update your version of phpBB to utilize this extension.',
+	'EXTENSION_REQUIREMENTS' => 'Extension requires at least phpBB version %1$s. You need to update your version of phpBB to utilize this extension.',
 ]);

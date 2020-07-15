@@ -94,7 +94,10 @@ class freegeoip
 			$message = '';
 			foreach ($json_decode as $key => $value)
 			{
-				$message .= '<pre>' . $this->language->lang('PIPIV_' . strtoupper($key), $value) . '</pre>';
+				if ($key != 'metro_code')
+				{
+					$message .= '<pre>' . $this->language->lang('PIPIV_' . strtoupper($key), $value) . '</pre>';
+				}
 			}
 
 			$data = array(
@@ -134,6 +137,7 @@ class freegeoip
 			"content-type: application/json"
 			],
 		]);
+
 
 		$response = curl_exec($curl);
 		$err = curl_error($curl);
