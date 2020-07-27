@@ -32,21 +32,16 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\controller\helper */
 	protected $helper;
 
-	/** @var \rmcgirr83\posteripinviewtopic\core\freegeoipapi */
-	protected $freegeoipapi;
-
 	public function __construct(
 		auth $auth,
 		language $language,
 		template $template,
-		helper $helper,
-		\rmcgirr83\posteripinviewtopic\core\freegeoip $freegeoip)
+		helper $helper)
 	{
 		$this->auth = $auth;
 		$this->language = $language;
 		$this->template = $template;
 		$this->helper = $helper;
-		$this->freegeoip = $freegeoip;
 	}
 
 	/**

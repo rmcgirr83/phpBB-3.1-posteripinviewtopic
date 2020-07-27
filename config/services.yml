@@ -6,7 +6,6 @@ services:
             - '@language'
             - '@template'
             - '@controller.helper'
-            - '@rmcgirr83.posteripinviewtopic.core.freegeoip'
         tags:
             - { name: event.listener }
 

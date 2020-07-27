@@ -51,6 +51,7 @@ $lang = array_merge($lang, [
 	'PIPIV_LONGITUDE'		=> '<b>Longitude:</b> %1$s',
 	'PIPIV_METRO_CODE'	=> '<b>Metro Code:</b> %1$s',
 	'EXTENSION_REQUIREMENTS' => 'Extension requires at least phpBB version %1$s. You need to update your version of phpBB to utilize this extension.',
+	'EXTENSION_REQUIRES_JAVASCRIPT'	=> 'You must have javascript enabled to see the results.',
 	//Donation
 	'PAYPAL_IMAGE_URL'          => 'https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-pill-paypal-26px.png',
 	'PAYPAL_ALT'                => 'Donate using PayPal',

@@ -15,7 +15,6 @@ namespace rmcgirr83\posteripinviewtopic\core;
 use phpbb\auth\auth;
 use phpbb\language\language;
 use phpbb\request\request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use phpbb\exception\http_exception;
 
 class freegeoip
@@ -83,11 +82,13 @@ class freegeoip
 
 			if (!empty($this->err))
 			{
-				$data = array(
+				$data = [
 					'MESSAGE_TITLE'	=> $this->language->lang('ERROR'),
 					'MESSAGE_TEXT'	=> $this->language->lang('ERROR_FROM_SERVER', $this->err),
-				);
-				return new JsonResponse($data);
+				];
+
+				$json_response = new \phpbb\json_response;
+				$json_response->send($data);
 			}
 
 			$json_decode = json_decode($response, true);
@@ -100,14 +101,16 @@ class freegeoip
 				}
 			}
 
-			$data = array(
+			$data = [
 				'MESSAGE_TITLE' => $this->language->lang('PAGE_TITLE'),
 				'MESSAGE_TEXT'	=> $message,
 				'success'	=> true,
-			);
-
-			return new JsonResponse($data);
+			];
+			$json_response = new \phpbb\json_response;
+			$json_response->send($data);
 		}
+
+		throw new http_exception(405, 'EXTENSION_REQUIRES_JAVASCRIPT');
 	}
 
 	/*
