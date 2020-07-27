@@ -94,7 +94,7 @@ class freegeoip
 			$message = '';
 			foreach ($json_decode as $key => $value)
 			{
-				if ($key != 'metro_code')
+				if ($key != 'metro_code' && !empty($value))
 				{
 					$message .= '<pre>' . $this->language->lang('PIPIV_' . strtoupper($key), $value) . '</pre>';
 				}

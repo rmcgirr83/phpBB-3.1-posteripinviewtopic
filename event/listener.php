@@ -10,6 +10,8 @@
 namespace rmcgirr83\posteripinviewtopic\event;
 
 use phpbb\auth\auth;
+use phpbb\language\language;
+use phpbb\template\template;
 use phpbb\controller\helper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -21,15 +23,28 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\auth\auth */
 	protected $auth;
 
+	/** @var \phpbb\language\language */
+	protected $language;
+
+	/** @var \phpbb\template\template */
+	protected $template;
+
 	/** @var \phpbb\controller\helper */
 	protected $helper;
 
 	/** @var \rmcgirr83\posteripinviewtopic\core\freegeoipapi */
 	protected $freegeoipapi;
 
-	public function __construct(auth $auth, helper $helper, \rmcgirr83\posteripinviewtopic\core\freegeoip $freegeoip)
+	public function __construct(
+		auth $auth,
+		language $language,
+		template $tempalte;
+		helper $helper,
+		\rmcgirr83\posteripinviewtopic\core\freegeoip $freegeoip)
 	{
 		$this->auth = $auth;
+		$this->language = $language;
+		$this->template = $template;
 		$this->helper = $helper;
 		$this->freegeoip = $freegeoip;
 	}
@@ -44,9 +59,28 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
+			'core.acp_extensions_run_action_after'	=>	'acp_extensions_run_action_after',
 			'core.viewtopic_post_rowset_data'		=> 'add_posterip_in_rowset',
 			'core.viewtopic_modify_post_row'		=> 'display_posterip_viewtopic',
 		);
+	}
+
+	/* Display additional metdate in extension details
+	*
+	* @param $event			event object
+	* @param return null
+	* @access public
+	*/
+	public function acp_extensions_run_action_after($event)
+	{
+		if ($event['ext_name'] == 'rmcgirr83/posteripinviewtopic' && $event['action'] == 'details')
+		{
+			$this->language->add_lang('common', $event['ext_name']);
+			$this->template->assign_vars([
+				'L_BUY_ME_A_BEER_EXPLAIN'	=> $this->language->lang('BUY ME A BEER_EXPLAIN', '<a href="' . $this->language->lang('BUY_ME_A_BEER_URL') . '" target="_blank" rel=”noreferrer noopener”>', '</a>'),
+				'S_BUY_ME_A_BEER_PIIV' => true,
+			]);
+		}
 	}
 
 	/**
