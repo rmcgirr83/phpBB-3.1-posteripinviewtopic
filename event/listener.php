@@ -38,7 +38,7 @@ class listener implements EventSubscriberInterface
 	public function __construct(
 		auth $auth,
 		language $language,
-		template $tempalte;
+		template $template,
 		helper $helper,
 		\rmcgirr83\posteripinviewtopic\core\freegeoip $freegeoip)
 	{

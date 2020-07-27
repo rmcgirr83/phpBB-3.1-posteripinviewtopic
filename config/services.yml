@@ -3,9 +3,9 @@ services:
         class: rmcgirr83\posteripinviewtopic\event\listener
         arguments:
             - '@auth'
-            - '@controller.helper'
             - '@language'
             - '@template'
+            - '@controller.helper'
             - '@rmcgirr83.posteripinviewtopic.core.freegeoip'
         tags:
             - { name: event.listener }
