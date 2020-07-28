@@ -16,6 +16,7 @@ use phpbb\auth\auth;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\exception\http_exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class freegeoip
 {
@@ -87,8 +88,8 @@ class freegeoip
 					'MESSAGE_TEXT'	=> $this->language->lang('ERROR_FROM_SERVER', $this->err),
 				];
 
-				$json_response = new \phpbb\json_response;
-				$json_response->send($data);
+				$json_response = new JsonResponse($data);
+				return $json_response;
 			}
 
 			$json_decode = json_decode($response, true);
@@ -106,8 +107,8 @@ class freegeoip
 				'MESSAGE_TEXT'	=> $message,
 				'success'	=> true,
 			];
-			$json_response = new \phpbb\json_response;
-			$json_response->send($data);
+			$json_response = new JsonResponse($data);
+			return $json_response;
 		}
 
 		throw new http_exception(405, 'EXTENSION_REQUIRES_JAVASCRIPT');
@@ -116,8 +117,7 @@ class freegeoip
 	/*
 	* Query the freegoip database
 	* @param	$posterip		the posters ip
-	* @param	$forum_id		the forum id
-	* @return 	string			return either a string on success or false on failure
+	* @return 	string			return either a string on failure or json data
 	* @access	private
 	*/
 	public function freegeoip_api($poster_ip)
@@ -136,8 +136,8 @@ class freegeoip
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "GET",
 			CURLOPT_HTTPHEADER => [
-			"accept: application/json",
-			"content-type: application/json"
+				"accept: application/json",
+				"content-type: application/json"
 			],
 		]);
 
