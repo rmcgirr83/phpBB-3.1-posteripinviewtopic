@@ -57,6 +57,8 @@ class listener implements EventSubscriberInterface
 			'core.acp_extensions_run_action_after'	=>	'acp_extensions_run_action_after',
 			'core.viewtopic_post_rowset_data'		=> 'add_posterip_in_rowset',
 			'core.viewtopic_modify_post_row'		=> 'display_posterip_viewtopic',
+			// mcp
+			'core.get_logs_after'					=> 'get_logs_after',
 		);
 	}
 
@@ -109,7 +111,7 @@ class listener implements EventSubscriberInterface
 
 		if (($this->auth->acl_gets('a_', 'm_') || $this->auth->acl_get('m_', (int) $forum_id)) && (!empty($poster_ip) && $poster_ip != '127.0.0.1'))
 		{
-			$query_url = $this->helper->route('rmcgirr83_posteripinviewtopic_core_freegeoip', array('poster_ip' => $poster_ip, 'forum_id' => (int) $forum_id));
+			$query_url = $this->helper->route('rmcgirr83_posteripinviewtopic_core_freegeoip', ['poster_ip' => $poster_ip, 'forum_id' => (int) $forum_id]);
 
 			$event['post_row'] = array_merge($event['post_row'], [
 				'POSTER_IP_VISIBLE' => true,
@@ -117,5 +119,30 @@ class listener implements EventSubscriberInterface
 				'QUERY_URL'			=> $query_url,
 			]);
 		}
+	}
+
+	/**
+	* set link on IP for logs
+	*
+	* @param object $event The event object
+	* @return null
+	* @access public
+	*/
+	public function get_logs_after($event)
+	{
+		$log_data = $event['log'];
+
+		foreach ($log_data as $key => $item)
+		{
+			$ip = $item['ip'];
+
+			if (!empty($ip) && $ip != '127.0.0.1')
+			{
+				$query_url = $this->helper->route('rmcgirr83_posteripinviewtopic_core_freegeoip', ['poster_ip' => $ip, 'forum_id' => 0]);
+
+				$log_data[$key]['ip'] = '<a href="' . $query_url . '" data-ajax="true">' . $ip . '</a>';
+			}
+		}
+		$event['log'] = $log_data;
 	}
 }
