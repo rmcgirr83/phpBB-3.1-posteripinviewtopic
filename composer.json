@@ -1,15 +1,15 @@
 {
     "name": "rmcgirr83/posteripinviewtopic",
     "type": "phpbb-extension",
-    "description": "This extension allows Moderators and Administrators to View the IP of the Poster on Viewtopic.",
+    "description": "This extension allows Moderators and Administrators to View the IP of the Poster on Viewtopic. Will also change ips in logs to links.",
     "homepage": "https://github.com/rmcgirr83/posteripinviewtopic",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "keywords": [
         "phpbb",
         "extension",
         "tools"
     ],
-    "time": "2020-07-14",
+    "time": "2020-08-14",
     "license": "GPL-2.0-only",
     "authors": [
         {
