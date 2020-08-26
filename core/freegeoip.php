@@ -61,8 +61,6 @@ class freegeoip
 	*/
 	public function freegeoip($poster_ip = '127.0.0.1', $forum_id = 0)
 	{
-
-		$poster_ip = $poster_ip;
 		$forum_id = (int) $forum_id;
 
 		$this->language->add_lang('common', 'rmcgirr83/posteripinviewtopic');
@@ -128,7 +126,6 @@ class freegeoip
 
 		curl_setopt_array($curl, [
 			CURLOPT_URL => $url,
-			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => "",
 			CURLOPT_MAXREDIRS => 10,
