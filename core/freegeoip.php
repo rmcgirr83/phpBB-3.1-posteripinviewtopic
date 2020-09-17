@@ -13,6 +13,7 @@ namespace rmcgirr83\posteripinviewtopic\core;
 * Ignore
 */
 use phpbb\auth\auth;
+use phpbb\db\driver\driver_interface;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\exception\http_exception;
@@ -23,61 +24,80 @@ class freegeoip
 	/** @var \phpbb\auth\auth */
 	protected $auth;
 
+	/** @var \phpbb\db\driver\driver_interface */
+	protected $db;
+
 	/** @var \phpbb\language\language */
 	protected $language;
 
 	/** @var \phpbb\request\request */
 	protected $request;
 
+	/** @var array phpBB tables */
+	protected $tables;
+
+	/** @var string */
+	protected $err = '';
+
 	/**
 	* Constructor
 	*
-	* @param \phpbb\auth\auth					$auth			Auth object
-	* @param \phpbb\language\language			$language		Language object
-	* @param \phpbb\request\request				$request		Request object
+	* @param \phpbb\auth\auth					$auth				Auth object
+	* @param \phpbb\db\driver\driver_interface	$db					Database object
+	* @param \phpbb\language\language			$language			Language object
+	* @param \phpbb\request\request				$request			Request object
+	* @param array								$tables				phpBB db tables
 	* @access public
 	*/
 	public function __construct(
 		auth $auth,
+		driver_interface $db,
 		language $language,
-		request $request
+		request $request,
+		array $tables
 	)
 	{
 		$this->auth = $auth;
+		$this->db = $db;
 		$this->language = $language;
 		$this->request = $request;
-
-		//a variable we use later...maybe
-		$this->err = '';
+		$this->tables = $tables;
 	}
 
 	/*
 	* populate a popup to display information retrieved
 	*
-	* @param	$posterip		the posters ip
-	* @param	$forum_id		the forum id
+	* @param	$post_id		the post id
 	* @return 	json response
 	* @access	public
 	*/
-	public function freegeoip($poster_ip = '127.0.0.1', $forum_id = 0)
+	public function freegeoip($post_id = 0)
 	{
-		$forum_id = (int) $forum_id;
-
-		$this->language->add_lang('common', 'rmcgirr83/posteripinviewtopic');
-
-		if (empty($poster_ip) || $poster_ip == '127.0.0.1')
-		{
-			throw new http_exception(403, 'IP_ADDRESS_INVALID');
-		}
-
-		if (!$this->auth->acl_gets('a_', 'm_') || !$this->auth->acl_get('m_', (int) $forum_id))
-		{
-			throw new http_exception(403, 'NOT_AUTHORISED');
-		}
-
 		if ($this->request->is_ajax())
 		{
-			$response = $this->freegeoip_api($poster_ip);
+			$this->language->add_lang('common', 'rmcgirr83/posteripinviewtopic');
+			$this->language->add_lang('mcp');
+
+			$sql = 'SELECT poster_ip, forum_id
+				FROM ' . $this->tables['posts'] . '
+				WHERE post_id = ' . (int) $post_id;
+			$result = $this->db->sql_query_limit($sql, 1);
+			$row = $this->db->sql_fetchrow($result);
+			$this->db->sql_freeresult($result);
+
+			// sanity check in case someone is just inserting post_ids at random
+			if (!$row)
+			{
+				throw new http_exception(404, 'POST_NOT_EXIST');
+			}
+
+			// auth check
+			if (!$this->auth->acl_gets('a_', 'm_') || !$this->auth->acl_get('m_', (int) $row['forum_id']))
+			{
+				throw new http_exception(403, 'NOT_AUTHORISED');
+			}
+
+			$response = $this->freegeoip_api($row['poster_ip']);
 
 			if (!empty($this->err))
 			{

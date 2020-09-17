@@ -13,5 +13,7 @@ services:
         class: rmcgirr83\posteripinviewtopic\core\freegeoip
         arguments:
             - '@auth'
+            - '@dbal.conn'
             - '@language'
             - '@request'
+            - '%tables%'
