@@ -13,7 +13,7 @@ namespace rmcgirr83\posteripinviewtopic\core;
 * Ignore
 */
 use phpbb\auth\auth;
-use phpbb\db\driver\driver_interface;
+use phpbb\db\driver\driver_interface as db;
 use phpbb\language\language;
 use phpbb\request\request;
 use phpbb\exception\http_exception;
@@ -21,16 +21,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class freegeoip
 {
-	/** @var \phpbb\auth\auth */
+	/** @var auth $auth */
 	protected $auth;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var db $db */
 	protected $db;
 
-	/** @var \phpbb\language\language */
+	/** @var language $language */
 	protected $language;
 
-	/** @var \phpbb\request\request */
+	/** @var request $request */
 	protected $request;
 
 	/** @var array phpBB tables */
@@ -42,11 +42,11 @@ class freegeoip
 	/**
 	* Constructor
 	*
-	* @param \phpbb\auth\auth					$auth				Auth object
-	* @param \phpbb\db\driver\driver_interface	$db					Database object
-	* @param \phpbb\language\language			$language			Language object
-	* @param \phpbb\request\request				$request			Request object
-	* @param array								$tables				phpBB db tables
+	* @param auth					$auth				Auth object
+	* @param db						$db					Database object
+	* @param language				$language			Language object
+	* @param request				$request			Request object
+	* @param array					$tables				phpBB db tables
 	* @access public
 	*/
 	public function __construct(
