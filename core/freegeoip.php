@@ -51,7 +51,7 @@ class freegeoip
 	*/
 	public function __construct(
 		auth $auth,
-		driver_interface $db,
+		db $db,
 		language $language,
 		request $request,
 		array $tables
@@ -114,9 +114,9 @@ class freegeoip
 			$message = '';
 			foreach ($json_decode as $key => $value)
 			{
-				if ($key != 'metro_code' && !empty($value))
+				if (!in_array($key, array('as', 'org', 'status')) && !empty($value))
 				{
-					$message .= '<pre>' . $this->language->lang('PIPIV_' . strtoupper($key), $value) . '</pre>';
+					$message .= '<pre>' . $this->language->lang('PIPIV_' . strtoupper($key), ucfirst($value)) . '</pre>';
 				}
 			}
 
@@ -140,7 +140,7 @@ class freegeoip
 	*/
 	public function freegeoip_api($poster_ip)
 	{
-		$url = 'https://freegeoip.app/json/' . $poster_ip;
+		$url = 'http://ip-api.com/json/' . $poster_ip;
 
 		$curl = curl_init();
 
