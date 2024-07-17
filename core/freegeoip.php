@@ -21,16 +21,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class freegeoip
 {
-	/** @var auth $auth */
+	/** @var $auth */
 	protected $auth;
 
-	/** @var db $db */
+	/** @var $db */
 	protected $db;
 
-	/** @var language $language */
+	/** @var $language */
 	protected $language;
 
-	/** @var request $request */
+	/** @var $request */
 	protected $request;
 
 	/** @var array phpBB tables */

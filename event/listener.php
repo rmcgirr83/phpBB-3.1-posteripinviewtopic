@@ -20,16 +20,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-	/** @var auth $auth */
+	/** @var $auth */
 	protected $auth;
 
-	/** @var language $language */
+	/** @var $language */
 	protected $language;
 
-	/** @var template $template */
+	/** @var $template */
 	protected $template;
 
-	/** @var helper $helper */
+	/** @var $helper */
 	protected $helper;
 
 	public function __construct(
